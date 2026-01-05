@@ -1,0 +1,303 @@
+/* --- ROOT VARIABLES --- */
+:root {
+  --bg-dark: #0b0e11; /* Binance/Terminal Black */
+  --bg-panel: #161a1e; /* Slightly lighter panel */
+  --bg-card: #1e2329; /* Card Grey */
+  --bg-input: #2b3139; /* Input Fields */
+
+  --primary: #f0b90b; /* Binance Gold */
+  --bull-green: #0ecb81; /* Profit Green */
+  --bear-red: #f6465d; /* Loss Red */
+
+  --text-main: #eaecef; /* White-ish */
+  --text-dim: #848e9c; /* Grey text */
+  --text-dark: #474d57; /* Darker grey for borders */
+
+  --font-main: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* --- RESET & BASICS --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  line-height: 1.8; /* Increased line height for heavy text readability */
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+.mono {
+  font-family: var(--font-mono);
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: 0.3s;
+}
+p {
+  margin-bottom: 1.5rem;
+}
+strong {
+  color: var(--primary);
+}
+
+/* --- NAVIGATION --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 5%;
+  background-color: var(--bg-dark);
+  border-bottom: 1px solid var(--bg-input);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+.logo span {
+  color: var(--primary);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary);
+}
+
+/* --- LAYOUT UTILITIES --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+  flex: 1;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+  border-left: 5px solid var(--primary);
+  padding-left: 1.5rem;
+}
+.subtitle {
+  color: var(--text-dim);
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+  max-width: 800px;
+}
+
+/* --- BUTTONS --- */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  background: var(--primary);
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+.btn:hover {
+  background: #d4a406;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(240, 185, 11, 0.2);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+.btn-outline:hover {
+  background: rgba(240, 185, 11, 0.1);
+}
+
+/* --- CARDS & GRIDS --- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+.grid-4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card {
+  background: var(--bg-card);
+  padding: 2.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--bg-input);
+  transition: transform 0.2s, border-color 0.2s;
+  height: 100%;
+}
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--text-dim);
+}
+
+.card h3 {
+  color: var(--text-main);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+.card p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* --- TYPOGRAPHY UTILS --- */
+.text-dense p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+.highlight-green {
+  color: var(--bull-green);
+}
+.highlight-red {
+  color: var(--bear-red);
+}
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* --- TICKER COMPONENT --- */
+.ticker-wrap {
+  background: #111;
+  border-bottom: 1px solid #222;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0.5rem 0;
+}
+.ticker-item {
+  display: inline-block;
+  padding: 0 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* --- FOOTER --- */
+footer {
+  background: var(--bg-panel);
+  padding: 4rem 2rem;
+  border-top: 1px solid var(--bg-input);
+  margin-top: auto;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-col h4 {
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+}
+.footer-col ul li {
+  margin-bottom: 0.8rem;
+}
+.footer-col ul li a {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+.footer-col ul li a:hover {
+  color: var(--primary);
+}
+
+/* --- FORMS --- */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+.form-control {
+  width: 100%;
+  padding: 15px;
+  background: var(--bg-dark);
+  border: 1px solid var(--bg-input);
+  color: var(--text-main);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.form-control::placeholder {
+  color: var(--text-dim);
+}
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+/* --- SOCIAL ICONS --- */
+.social-icons a {
+  color: var(--text-dim);
+  font-size: 1.5rem;
+  margin-right: 1.5rem;
+  transition: color 0.3s;
+}
+.social-icons a:hover {
+  color: var(--primary);
+}
+.social-icons a:last-child {
+  margin-right: 0;
+}
+/* --- ADDITIONAL STYLES CAN BE ADDED BELOW --- */
