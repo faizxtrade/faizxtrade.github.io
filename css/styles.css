@@ -28,11 +28,12 @@ body {
   background-color: var(--bg-dark);
   color: var(--text-main);
   font-family: var(--font-main);
-  line-height: 1.8; /* Increased line height for heavy text readability */
+  line-height: 1.8;
   font-size: 16px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scroll on mobile */
 }
 
 h1,
@@ -65,6 +66,7 @@ strong {
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: padding 0.3s ease;
 }
 
 .logo {
@@ -98,6 +100,7 @@ strong {
   margin: 0 auto;
   padding: 5rem 2rem;
   flex: 1;
+  width: 100%;
 }
 
 .section-title {
@@ -106,6 +109,7 @@ strong {
   color: var(--text-main);
   border-left: 5px solid var(--primary);
   padding-left: 1.5rem;
+  word-wrap: break-word; /* Prevent long titles from breaking layout */
 }
 .subtitle {
   color: var(--text-dim);
@@ -128,6 +132,7 @@ strong {
   text-transform: uppercase;
   font-size: 0.9rem;
   letter-spacing: 0.5px;
+  text-align: center;
 }
 .btn:hover {
   background: #d4a406;
@@ -145,6 +150,7 @@ strong {
 }
 
 /* --- CARDS & GRIDS --- */
+/* Mobile First: Default to 1 column */
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr;
@@ -161,6 +167,7 @@ strong {
   gap: 1.5rem;
 }
 
+/* Desktop Breakpoint */
 @media (min-width: 768px) {
   .grid-2 {
     grid-template-columns: 1fr 1fr;
@@ -179,7 +186,9 @@ strong {
   border-radius: 6px;
   border: 1px solid var(--bg-input);
   transition: transform 0.2s, border-color 0.2s;
-  height: 100%;
+  height: 100%; /* Default height */
+  display: flex;
+  flex-direction: column;
 }
 .card:hover {
   transform: translateY(-5px);
@@ -196,6 +205,7 @@ strong {
   font-size: 0.95rem;
   line-height: 1.7;
   margin-bottom: 0;
+  flex-grow: 1; /* Pushes content to fill space evenly */
 }
 
 /* --- TYPOGRAPHY UTILS --- */
@@ -224,10 +234,18 @@ strong {
   overflow: hidden;
   white-space: nowrap;
   padding: 0.5rem 0;
+  /* Make ticker scrollable on touch devices */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
 }
+.ticker-wrap::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
 .ticker-item {
   display: inline-block;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
   color: var(--text-dim);
@@ -242,7 +260,7 @@ footer {
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 3rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -287,6 +305,7 @@ textarea.form-control {
   min-height: 120px;
   resize: vertical;
 }
+
 /* --- SOCIAL ICONS --- */
 .social-icons a {
   color: var(--text-dim);
@@ -300,4 +319,106 @@ textarea.form-control {
 .social-icons a:last-child {
   margin-right: 0;
 }
-/* --- ADDITIONAL STYLES CAN BE ADDED BELOW --- */
+
+/* =========================================
+   RESPONSIVE MEDIA QUERIES
+   ========================================= */
+
+/* Tablets and Mobile Devices (Max Width 768px) */
+@media (max-width: 768px) {
+  /* Navigation Stacking */
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    flex-wrap: wrap; /* Allow wrapping on very small screens */
+  }
+
+  /* Typography Scaling */
+  .section-title {
+    font-size: 1.8rem; /* Smaller titles */
+    padding-left: 1rem;
+    border-left-width: 4px;
+  }
+
+  /* Override inline header styles via specific targeting */
+  header h1 {
+    font-size: 2.2rem !important; /* Force smaller Hero H1 */
+  }
+
+  header p {
+    font-size: 1rem !important;
+  }
+
+  header div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  header .btn,
+  header .btn-outline {
+    margin-left: 0 !important;
+    width: 100%;
+  }
+
+  /* Container Padding */
+  .container {
+    padding: 3rem 1.5rem;
+  }
+
+  /* Card Padding */
+  .card {
+    padding: 1.5rem;
+  }
+
+  /* Footer Adjustments */
+  footer {
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr; /* Stack footer columns */
+    gap: 2rem;
+  }
+
+  .footer-col {
+    border-bottom: 1px solid var(--bg-input);
+    padding-bottom: 1.5rem;
+  }
+
+  .footer-col:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Very Small Mobile (Max Width 480px) */
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    font-size: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  /* Ticker Text Size */
+  .ticker-item {
+    font-size: 0.75rem;
+    padding: 0 1rem;
+  }
+}
+/* End of CSS File */
